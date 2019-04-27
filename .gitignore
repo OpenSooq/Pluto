@@ -14,7 +14,25 @@
 # Built application files
 *.apk
 *.ap_
+bin
+gen
+out
+lib
 
+.idea
+*.iml
+classes
+
+obj
+
+.DS_Store
+
+# Gradle
+.gradle
+jniLibs
+build
+local.properties
+reports
 # Files for the ART/Dalvik VM
 *.dex
 
