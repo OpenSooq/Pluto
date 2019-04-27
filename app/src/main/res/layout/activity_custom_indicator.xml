@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="#212121"
+    tools:context=".CustomIndicatorActivity">
+
+    <com.opensooq.sliderview.SliderView
+        android:id="@+id/slider_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:indicator_visibility="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.opensooq.sliderview.RecyclerViewIndicator
+        android:id="@+id/infinity_gauntlet_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/slider_view"
+        app:selected_drawable="@drawable/ic_thanos_snap"
+        app:unselected_drawable="@drawable/ic_thanos_idle"/>
+
+</android.support.constraint.ConstraintLayout>
