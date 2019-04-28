@@ -1,1 +1,1 @@
-include ':app', ':sliderview'
+include ':app', ':pluto'

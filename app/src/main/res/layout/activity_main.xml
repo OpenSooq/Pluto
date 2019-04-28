@@ -8,7 +8,7 @@
     android:background="#212121"
     tools:context=".MainActivity">
 
-    <com.opensooq.sliderview.SliderView
+    <com.opensooq.pluto.Pluto
         android:id="@+id/slider_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

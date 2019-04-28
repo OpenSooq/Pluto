@@ -9,7 +9,7 @@
     android:background="#212121"
     tools:context=".CustomIndicatorActivity">
 
-    <com.opensooq.sliderview.SliderView
+    <com.opensooq.pluto.Pluto
         android:id="@+id/slider_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <com.opensooq.sliderview.RecyclerViewIndicator
+    <com.opensooq.pluto.RecyclerViewIndicator
         android:id="@+id/infinity_gauntlet_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

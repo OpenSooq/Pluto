@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="Pluto">
+        <attr name="indicator_visibility" format="boolean"/>
+        <attr name="auto_cycle" format="boolean"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="RecyclerViewIndicator">
+        <!-- indicator visibility -->
+        <attr name="visibility" format="boolean"/>
+
+        <attr name="shape" format="enum">
+            <enum name="oval" value="0"/>
+            <enum name="rect" value="1"/>
+        </attr>
+
+        <attr name="selected_color" format="color"/>
+        <attr name="unselected_color" format="color"/>
+
+        <!-- indicator style -->
+        <attr name="selected_drawable" format="reference"/>
+        <attr name="unselected_drawable" format="reference"/>
+
+        <attr name="selected_width" format="dimension"/>
+        <attr name="selected_height" format="dimension"/>
+
+        <attr name="unselected_width" format="dimension"/>
+        <attr name="unselected_height" format="dimension"/>
+
+        <attr name="padding_left" format="dimension"/>
+        <attr name="padding_right" format="dimension"/>
+        <attr name="padding_top" format="dimension"/>
+        <attr name="padding_bottom" format="dimension"/>
+
+        <attr name="selected_padding_left" format="dimension"/>
+        <attr name="selected_padding_right" format="dimension"/>
+        <attr name="selected_padding_top" format="dimension"/>
+        <attr name="selected_padding_bottom" format="dimension"/>
+
+        <attr name="unselected_padding_left" format="dimension"/>
+        <attr name="unselected_padding_right" format="dimension"/>
+        <attr name="unselected_padding_top" format="dimension"/>
+        <attr name="unselected_padding_bottom" format="dimension"/>
+
+
+    </declare-styleable>
+
+
+    <declare-styleable name="Themes">
+        <attr name="PlutoViewStyle" format="reference"/>
+        <attr name="SliderIndicatorStyle" format="reference"/>
+
+    </declare-styleable>
+
+
+</resources>
