@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Movie> getAvengers() {
         List<Movie> items = new ArrayList<>();
-        items.add(new Movie("7.1", R.drawable.ic_captain_marvel));
+        items.add(new  Movie("7.1", R.drawable.ic_captain_marvel));
         items.add(new Movie("9.2", R.drawable.ic_end_game));
         items.add(new Movie("7.5", R.drawable.ic_dr_strange));
         items.add(new Movie("7.9", R.drawable.ic_iron_man));
