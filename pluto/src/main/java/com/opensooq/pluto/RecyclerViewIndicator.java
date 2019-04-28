@@ -18,6 +18,9 @@ import com.opensooq.pluto.base.BaseCircularAdapter;
 import com.opensooq.pluto.listeners.SnapOnScrollListener;
 
 import java.util.ArrayList;
+/**
+ * Created by Omar Altamimi on 28,April,2019
+ */
 
 public class RecyclerViewIndicator extends LinearLayout {
 

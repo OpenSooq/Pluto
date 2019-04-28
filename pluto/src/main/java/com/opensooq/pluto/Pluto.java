@@ -15,21 +15,25 @@ import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
 import com.opensooq.pluto.base.BaseCircularAdapter;
+import com.opensooq.pluto.listeners.OnSlideChangeListener;
 import com.opensooq.pluto.listeners.SnapOnScrollListener;
 
 import java.lang.ref.WeakReference;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Created by Omar Altamimi on 28,April,2019
+ */
+
 public class Pluto extends FrameLayout {
     private RecyclerView rvSlider;
     private OnSlideChangeListener mOnSlideChangeListener;
-    private OnSlideChangePositionListener mOnSlideChangePositionListener;
     private BaseCircularAdapter mAdapter;
     private long duration = 4000;
     private int currentPosition;
     private RecyclerViewIndicator mIndicator;
-    private boolean mIndicatorVisibility = true;
+    private boolean mIndicatorVisibility;
     private Timer mCycleTimer;
     private TimerTask mCycleTask;
 
@@ -106,16 +110,18 @@ public class Pluto extends FrameLayout {
                 mOnSlideChangeListener.onSlideChange(getAdapter(),
                         position % getAdapter().getRealCount());
             }
-            if (mOnSlideChangePositionListener != null) {
-                mOnSlideChangePositionListener.onPositionChanged(position,
-                        position % getAdapter().getItemCount());
-            }
         });
     }
 
     public void create(BaseCircularAdapter adapter, long duration) {
         setAdapter(adapter);
+        if (duration != -1)
+            this.duration = duration;
         setIndicatorPosition(IndicatorPosition.CENTER_BOTTOM);
+    }
+
+    public void create(BaseCircularAdapter adapter) {
+        create(adapter, -1);
     }
 
     /**
@@ -220,22 +226,9 @@ public class Pluto extends FrameLayout {
 
     }
 
-    public void setOnSlideChangePositionListener(OnSlideChangePositionListener onSlideChangePositionListener) {
-        mOnSlideChangePositionListener = onSlideChangePositionListener;
-    }
-
 
     public long getDuration() {
         return duration;
-    }
-
-
-    public interface OnSlideChangeListener {
-        void onSlideChange(BaseCircularAdapter adapter, int position);
-    }
-
-    public interface OnSlideChangePositionListener {
-        void onPositionChanged(int circularPosition, int realPosition);
     }
 
 
@@ -483,7 +476,6 @@ public class Pluto extends FrameLayout {
         }
         mOnScrollListener = null;
         mOnSlideChangeListener = null;
-        mOnSlideChangePositionListener = null;
         mCycleTimer = null;
         mCycleTask = null;
         mResumingTask = null;

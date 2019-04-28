@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.opensooq.pluto.listeners.OnItemClickListener;
+/**
+ * Created by Omar Altamimi on 28,April,2019
+ */
 
 public abstract class BaseCircularViewHolder<T> extends RecyclerView.ViewHolder {
     protected final Context mContext;

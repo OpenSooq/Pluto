@@ -8,6 +8,9 @@ import com.opensooq.pluto.listeners.OnItemClickListener;
 
 import java.util.List;
 
+/**
+ * Created by Omar Altamimi on 28,April,2019
+ */
 
 public abstract class BaseCircularAdapter<T, VH extends BaseCircularViewHolder<T>> extends RecyclerView.Adapter<VH> {
     private List<T> items;

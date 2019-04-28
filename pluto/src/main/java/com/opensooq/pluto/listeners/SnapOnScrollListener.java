@@ -3,6 +3,10 @@ package com.opensooq.pluto.listeners;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
+/**
+ * Created by Omar Altamimi on 28,April,2019
+ */
+
 public class SnapOnScrollListener extends RecyclerView.OnScrollListener {
     private int snapPosition = RecyclerView.NO_POSITION;
     OnSnapPositionChangeListener mOnSnapPositionChangeListener;
