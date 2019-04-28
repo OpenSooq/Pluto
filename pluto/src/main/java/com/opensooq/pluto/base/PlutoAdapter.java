@@ -12,21 +12,21 @@ import java.util.List;
  * Created by Omar Altamimi on 28,April,2019
  */
 
-public abstract class BaseCircularAdapter<T, VH extends BaseCircularViewHolder<T>> extends RecyclerView.Adapter<VH> {
+public abstract class PlutoAdapter<T, VH extends PlutoViewHolder<T>> extends RecyclerView.Adapter<VH> {
     private List<T> items;
     public static final int MULTIPLY = 400;
-    OnItemClickListener<T> mOnItemClickListener;
+    private OnItemClickListener<T> mOnItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener<T> onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
 
-    public BaseCircularAdapter(List<T> items, OnItemClickListener<T> onItemClickListener) {
+    public PlutoAdapter(List<T> items, OnItemClickListener<T> onItemClickListener) {
         this.items = items;
         mOnItemClickListener = onItemClickListener;
     }
 
-    public BaseCircularAdapter(List<T> items) {
+    public PlutoAdapter(List<T> items) {
         this.items = items;
     }
 

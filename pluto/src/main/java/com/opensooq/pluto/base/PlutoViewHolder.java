@@ -14,7 +14,7 @@ import com.opensooq.pluto.listeners.OnItemClickListener;
  * Created by Omar Altamimi on 28,April,2019
  */
 
-public abstract class BaseCircularViewHolder<T> extends RecyclerView.ViewHolder {
+public abstract class PlutoViewHolder<T> extends RecyclerView.ViewHolder {
     protected final Context mContext;
     private OnItemClickListener<T> mOnItemClickListener;
     public int mPosition = RecyclerView.NO_POSITION;
@@ -33,7 +33,7 @@ public abstract class BaseCircularViewHolder<T> extends RecyclerView.ViewHolder 
         this.realAdapterCount = realAdapterCount;
     }
 
-    public BaseCircularViewHolder(ViewGroup parent, @LayoutRes int itemLayoutId) {
+    public PlutoViewHolder(ViewGroup parent, @LayoutRes int itemLayoutId) {
         super(LayoutInflater.from(parent.getContext()).inflate(itemLayoutId, parent, false));
         this.views = new SparseArray<>();
         mContext = itemView.getContext();

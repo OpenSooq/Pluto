@@ -14,7 +14,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
-import com.opensooq.pluto.base.BaseCircularAdapter;
+import com.opensooq.pluto.base.PlutoAdapter;
 import com.opensooq.pluto.listeners.OnSlideChangeListener;
 import com.opensooq.pluto.listeners.SnapOnScrollListener;
 
@@ -29,7 +29,7 @@ import java.util.TimerTask;
 public class Pluto extends FrameLayout {
     private RecyclerView rvSlider;
     private OnSlideChangeListener mOnSlideChangeListener;
-    private BaseCircularAdapter mAdapter;
+    private PlutoAdapter mAdapter;
     private long duration = 4000;
     private int currentPosition;
     private RecyclerViewIndicator mIndicator;
@@ -113,14 +113,14 @@ public class Pluto extends FrameLayout {
         });
     }
 
-    public void create(BaseCircularAdapter adapter, long duration) {
+    public void create(PlutoAdapter adapter, long duration) {
         setAdapter(adapter);
         if (duration != -1)
             this.duration = duration;
         setIndicatorPosition(IndicatorPosition.CENTER_BOTTOM);
     }
 
-    public void create(BaseCircularAdapter adapter) {
+    public void create(PlutoAdapter adapter) {
         create(adapter, -1);
     }
 
@@ -189,7 +189,7 @@ public class Pluto extends FrameLayout {
     }
 
 
-    private void setAdapter(BaseCircularAdapter adapter) {
+    private void setAdapter(PlutoAdapter adapter) {
         if (adapter == null)
             throw new IllegalArgumentException("custom Adapter cannot be null");
         this.mAdapter = adapter;
@@ -217,7 +217,7 @@ public class Pluto extends FrameLayout {
         rvSlider.addOnScrollListener(mOnScrollListener);
     }
 
-    private BaseCircularAdapter getAdapter() {
+    private PlutoAdapter getAdapter() {
         return mAdapter;
     }
 
@@ -273,7 +273,7 @@ public class Pluto extends FrameLayout {
         if (position >= getAdapter().getRealCount()) {
             throw new IllegalStateException("Item position is not exist");
         }
-        currentPosition = getAdapter().getRealCount() * BaseCircularAdapter.MULTIPLY
+        currentPosition = getAdapter().getRealCount() * PlutoAdapter.MULTIPLY
                 + position;
         if (smooth) {
             rvSlider.smoothScrollToPosition(currentPosition);

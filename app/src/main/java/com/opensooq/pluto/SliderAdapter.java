@@ -5,13 +5,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.opensooq.pluto.base.BaseCircularAdapter;
-import com.opensooq.pluto.base.BaseCircularViewHolder;
+import com.opensooq.pluto.base.PlutoAdapter;
+import com.opensooq.pluto.base.PlutoViewHolder;
 import com.opensooq.pluto.listeners.OnItemClickListener;
 
 import java.util.List;
 
-public class SliderAdapter extends BaseCircularAdapter<Movie, SliderAdapter.ViewHolder> {
+public class SliderAdapter extends PlutoAdapter<Movie, SliderAdapter.ViewHolder> {
 
     public SliderAdapter(List<Movie> items, OnItemClickListener<Movie> onItemClickListener) {
         super(items, onItemClickListener);
@@ -22,7 +22,7 @@ public class SliderAdapter extends BaseCircularAdapter<Movie, SliderAdapter.View
         return new ViewHolder(parent, R.layout.item_movie_promotion);
     }
 
-    public static class ViewHolder extends BaseCircularViewHolder<Movie> {
+    public static class ViewHolder extends PlutoViewHolder<Movie> {
         ImageView ivPoster;
         TextView tvRating;
 

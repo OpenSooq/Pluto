@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.opensooq.pluto.base.BaseCircularAdapter;
+import com.opensooq.pluto.base.PlutoAdapter;
 import com.opensooq.pluto.listeners.SnapOnScrollListener;
 
 import java.util.ArrayList;
@@ -401,10 +401,10 @@ public class RecyclerViewIndicator extends LinearLayout {
             if (mItemCount == 0) {
                 return;
             }
-            if (adapter instanceof BaseCircularAdapter) {
-                if (((BaseCircularAdapter) adapter).getRealCount() == 0)
+            if (adapter instanceof PlutoAdapter) {
+                if (((PlutoAdapter) adapter).getRealCount() == 0)
                     return;
-                position = position % ((BaseCircularAdapter) adapter).getRealCount();
+                position = position % ((PlutoAdapter) adapter).getRealCount();
             }
 
             setItemAsSelected(position - 1);
@@ -453,8 +453,8 @@ public class RecyclerViewIndicator extends LinearLayout {
      * @return
      */
     private int getShouldDrawCount() {
-        if (mRecyclerView.getAdapter() instanceof BaseCircularAdapter) {
-            return ((BaseCircularAdapter) mRecyclerView.getAdapter()).getRealCount();
+        if (mRecyclerView.getAdapter() instanceof PlutoAdapter) {
+            return ((PlutoAdapter) mRecyclerView.getAdapter()).getRealCount();
         } else {
             return mRecyclerView.getAdapter().getItemCount();
         }

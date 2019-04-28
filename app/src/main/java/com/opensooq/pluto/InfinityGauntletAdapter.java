@@ -4,13 +4,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.opensooq.pluto.base.BaseCircularAdapter;
-import com.opensooq.pluto.base.BaseCircularViewHolder;
+import com.opensooq.pluto.base.PlutoAdapter;
+import com.opensooq.pluto.base.PlutoViewHolder;
 import com.opensooq.pluto.listeners.OnItemClickListener;
 
 import java.util.List;
 
-public class InfinityGauntletAdapter extends BaseCircularAdapter<Gif,
+public class InfinityGauntletAdapter extends PlutoAdapter<Gif,
         InfinityGauntletAdapter.ViewHolder> {
 
     public InfinityGauntletAdapter(List<Gif> items,
@@ -23,7 +23,7 @@ public class InfinityGauntletAdapter extends BaseCircularAdapter<Gif,
         return new ViewHolder(parent, R.layout.item_infinit_gauntlet);
     }
 
-    public static class ViewHolder extends BaseCircularViewHolder<Gif> {
+    public static class ViewHolder extends PlutoViewHolder<Gif> {
         ImageView ivPoster;
 
 
