@@ -1,4 +1,4 @@
-package com.opensooq.pluto;
+package com.opensooq.plutodemo;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.opensooq.pluto", appContext.getPackageName());
+        assertEquals("com.opensooq.plutodemo", appContext.getPackageName());
     }
 }

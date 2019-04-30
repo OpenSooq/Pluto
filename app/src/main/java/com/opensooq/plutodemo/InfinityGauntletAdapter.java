@@ -1,4 +1,4 @@
-package com.opensooq.pluto;
+package com.opensooq.plutodemo;
 
 import android.view.ViewGroup;
 import android.widget.ImageView;

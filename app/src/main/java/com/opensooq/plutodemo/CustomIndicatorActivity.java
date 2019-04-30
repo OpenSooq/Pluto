@@ -1,7 +1,9 @@
-package com.opensooq.pluto;
+package com.opensooq.plutodemo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.opensooq.pluto.Pluto;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,7 +7,7 @@ android {
     }
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.opensooq.pluto"
+        applicationId "com.opensooq.plutodemo"
         minSdkVersion 17
         targetSdkVersion 28
         versionCode 1

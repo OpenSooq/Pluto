@@ -1,5 +1,29 @@
 apply plugin: 'com.android.library'
+ext {
+    bintrayRepo = 'Pluto'
+    bintrayName = 'pluto'   // Has to be same as your library module name
 
+    publishedGroupId = 'com.opensooq.android'
+    libraryName = 'Pluto'
+    artifact = 'pluto'     // Has to be same as your library module name
+
+    libraryDescription = 'an Easy, light wight  and high performance Slider view Library for Android!  You can customize it to any view since it based RecyclerView  not like other libraries that has only images model and Pluto is not depending on any Image loading library '
+
+    // Your github repo link
+    siteUrl = 'https://github.com/OpenSooq/Pluto'
+    gitUrl = 'https://github.com/OpenSooq/Pluto.git'
+    githubRepository= 'OpenSooq/Pluto'
+
+    libraryVersion = '1.0'
+
+    developerId = 'OpenSooq'
+    developerName = 'OpenSooq'
+    developerEmail = 'omar.tamimid1@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
 android {
     compileSdkVersion 28
 
@@ -38,3 +62,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/bintrayv1.gradle'

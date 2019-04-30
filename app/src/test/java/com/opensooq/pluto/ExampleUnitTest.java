@@ -1,4 +1,4 @@
-package com.opensooq.pluto;
+package com.opensooq.plutodemo;
 
 import org.junit.Test;
 
