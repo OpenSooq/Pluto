@@ -63,4 +63,4 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
 apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/bintrayv1.gradle'
+apply from: 'https://gist.githubusercontent.com/tamtom/f54a538637178e4818bbc72f24a73e2d/raw/af6f8b6782475230cfff852ae11669c936e739a2/bintrayv1.gradle'
