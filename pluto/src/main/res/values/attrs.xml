@@ -2,7 +2,7 @@
 <resources>
 
 
-    <declare-styleable name="Pluto">
+    <declare-styleable name="PlutoView">
         <attr name="indicator_visibility" format="boolean"/>
         <attr name="auto_cycle" format="boolean"/>
 

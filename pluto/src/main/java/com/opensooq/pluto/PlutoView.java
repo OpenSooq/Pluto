@@ -26,7 +26,7 @@ import java.util.TimerTask;
  * Created by Omar Altamimi on 28,April,2019
  */
 
-public class Pluto extends FrameLayout {
+public class PlutoView extends FrameLayout {
     private RecyclerView rvSlider;
     private OnSlideChangeListener mOnSlideChangeListener;
     private PlutoAdapter mAdapter;
@@ -45,26 +45,26 @@ public class Pluto extends FrameLayout {
     private RecyclerView.OnScrollListener mOnScrollListener;
     private TimerTask mResumingTask;
 
-    public Pluto(@NonNull Context context) {
+    public PlutoView(@NonNull Context context) {
         this(context, null);
     }
 
-    public Pluto(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public PlutoView(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, R.attr.PlutoViewStyle);
 
     }
 
-    public Pluto(@NonNull Context context,
-                 @Nullable AttributeSet attrs, int defStyleAttr) {
+    public PlutoView(@NonNull Context context,
+                     @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         inflate(getContext(), R.layout.layout_view_slider, this);
         final TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs,
-                R.styleable.Pluto,
+                R.styleable.PlutoView,
                 defStyleAttr, 0);
 
         rvSlider = findViewById(R.id.rvSlider);
-        mAutoCycle = attributes.getBoolean(R.styleable.Pluto_auto_cycle, true);
-        mIndicatorVisibility = attributes.getBoolean(R.styleable.Pluto_indicator_visibility,
+        mAutoCycle = attributes.getBoolean(R.styleable.PlutoView_auto_cycle, true);
+        mIndicatorVisibility = attributes.getBoolean(R.styleable.PlutoView_indicator_visibility,
                 false);
         initScrollListener();
 
@@ -74,10 +74,8 @@ public class Pluto extends FrameLayout {
             public boolean onInterceptTouchEvent(@NonNull RecyclerView recyclerView,
                                                  @NonNull MotionEvent motionEvent) {
                 int action = motionEvent.getAction();
-                switch (action) {
-                    case MotionEvent.ACTION_UP:
-                        recoverCycle();
-                        break;
+                if (action == MotionEvent.ACTION_UP) {
+                    recoverCycle();
                 }
                 return false;
             }
@@ -442,10 +440,8 @@ public class Pluto extends FrameLayout {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         int action = ev.getAction();
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-                pauseAutoCycle();
-                break;
+        if (action == MotionEvent.ACTION_DOWN) {
+            pauseAutoCycle();
         }
         return false;
     }
@@ -483,17 +479,17 @@ public class Pluto extends FrameLayout {
     }
 
     static class IncomingHandler extends Handler {
-        private final WeakReference<Pluto> mSliderWeakReference;
+        private final WeakReference<PlutoView> mSliderWeakReference;
 
-        IncomingHandler(Pluto pluto) {
-            mSliderWeakReference = new WeakReference<>(pluto);
+        IncomingHandler(PlutoView plutoView) {
+            mSliderWeakReference = new WeakReference<>(plutoView);
         }
 
         @Override
         public void handleMessage(Message msg) {
-            Pluto pluto = mSliderWeakReference.get();
-            if (pluto != null) {
-                pluto.moveNextPosition();
+            PlutoView plutoView = mSliderWeakReference.get();
+            if (plutoView != null) {
+                plutoView.moveNextPosition();
             }
         }
     }

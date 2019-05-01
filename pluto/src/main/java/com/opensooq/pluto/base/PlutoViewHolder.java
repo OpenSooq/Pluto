@@ -17,7 +17,7 @@ import com.opensooq.pluto.listeners.OnItemClickListener;
 public abstract class PlutoViewHolder<T> extends RecyclerView.ViewHolder {
     protected final Context mContext;
     private OnItemClickListener<T> mOnItemClickListener;
-    public int mPosition = RecyclerView.NO_POSITION;
+    int mPosition = RecyclerView.NO_POSITION;
     private int realAdapterCount;
 
     /**

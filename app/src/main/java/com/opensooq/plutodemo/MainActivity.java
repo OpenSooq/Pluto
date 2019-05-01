@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.LinearLayout;
 
-import com.opensooq.pluto.Pluto;
+import com.opensooq.pluto.PlutoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Pluto pluto = findViewById(R.id.slider_view);
+        PlutoView pluto = findViewById(R.id.slider_view);
         SliderAdapter adapter = new SliderAdapter(getAvengers(), (item, position) -> {
         });
         pluto.create(adapter, 4000);

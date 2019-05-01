@@ -9,7 +9,7 @@
     android:background="#212121"
     tools:context=".CustomIndicatorActivity">
 
-    <com.opensooq.pluto.Pluto
+    <com.opensooq.pluto.PlutoView
         android:id="@+id/slider_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -3,7 +3,7 @@ package com.opensooq.plutodemo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.opensooq.pluto.Pluto;
+import com.opensooq.pluto.PlutoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class CustomIndicatorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_indicator);
 
-        Pluto pluto = findViewById(R.id.slider_view);
+        PlutoView pluto = findViewById(R.id.slider_view);
         InfinityGauntletAdapter adapter = new InfinityGauntletAdapter(getGifs(), (item, position) -> {
 
         });
