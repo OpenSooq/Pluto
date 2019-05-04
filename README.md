@@ -131,7 +131,9 @@ public class YourAdapter extends PlutoAdapter<YourModel, YourViewHolder> {
                 
             }
         });
-        ```
+```
+
+
 
 # Custom indicator
 Add the following xml to your layout:
