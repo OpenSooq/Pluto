@@ -2,7 +2,7 @@
     <img src="https://opensooqui2.os-cdn.com/os_web/desktop/opensooq-logo.svg" alt="OpenSooq logo" title="OpenSooq" align="right" height="70" />
 </a>
 
-Pluto [Android Slider view Library]
+Pluto [Android Slider View Library]
 ======================
 ![API](https://img.shields.io/badge/API-17%2B-green.svg?style=flat) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
