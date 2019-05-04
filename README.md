@@ -82,7 +82,7 @@ public class YourAdapter extends PlutoAdapter<YourModel, YourViewHolder> {
 ```
 #### Then in your xml 
 ```XML
-<com.opensooq.pluto.Pluto
+<com.opensooq.pluto.PlutoView
         android:id="@+id/slider_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -93,7 +93,7 @@ public class YourAdapter extends PlutoAdapter<YourModel, YourViewHolder> {
 ``` 
 ### finaly attach the adapter to Pluto 
 ```java
-  Pluto pluto = findViewById(R.id.slider_view);
+  PlutoView pluto = findViewById(R.id.slider_view);
         YourAdapter adapter = new YourAdapter(yourModelsList);
         pluto.create(adapter);     
 ```
