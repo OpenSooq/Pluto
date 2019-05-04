@@ -8,7 +8,7 @@
 
     </declare-styleable>
 
-    <declare-styleable name="RecyclerViewIndicator">
+    <declare-styleable name="PlutoIndicator">
         <!-- indicator visibility -->
         <attr name="visibility" format="boolean"/>
 

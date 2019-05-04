@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
@@ -18,11 +19,12 @@ import com.opensooq.pluto.base.PlutoAdapter;
 import com.opensooq.pluto.listeners.SnapOnScrollListener;
 
 import java.util.ArrayList;
+
 /**
  * Created by Omar Altamimi on 28,April,2019
  */
 
-public class RecyclerViewIndicator extends LinearLayout {
+public class PlutoIndicator extends LinearLayout {
 
     private Context mContext;
 
@@ -54,18 +56,8 @@ public class RecyclerViewIndicator extends LinearLayout {
     SnapOnScrollListener snapOnScrollListener;
     private int mItemCount = 0;
 
-    private Shape mIndicatorShape = Shape.Oval;
-
     private boolean isVisible = true;
 
-    private int mDefaultSelectedColor;
-    private int mDefaultUnSelectedColor;
-
-    private float mDefaultSelectedWidth;
-    private float mDefaultSelectedHeight;
-
-    private float mDefaultUnSelectedWidth;
-    private float mDefaultUnSelectedHeight;
     boolean indicatorVisibility;
 
 
@@ -74,11 +66,6 @@ public class RecyclerViewIndicator extends LinearLayout {
 
     private LayerDrawable mSelectedLayerDrawable;
     private LayerDrawable mUnSelectedLayerDrawable;
-
-    private float mPadding_left;
-    private float mPadding_right;
-    private float mPadding_top;
-    private float mPadding_bottom;
 
     private float mSelectedPadding_Left;
     private float mSelectedPadding_Right;
@@ -96,102 +83,106 @@ public class RecyclerViewIndicator extends LinearLayout {
     private ArrayList<ImageView> mIndicators = new ArrayList<ImageView>();
 
 
-    public RecyclerViewIndicator(Context context) {
+    public PlutoIndicator(Context context) {
         this(context, null);
     }
 
-    public RecyclerViewIndicator(Context context, AttributeSet attrs) {
+    public PlutoIndicator(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         mContext = context;
 
         final TypedArray attributes = context.obtainStyledAttributes(attrs,
-                R.styleable.RecyclerViewIndicator, 0, 0);
+                R.styleable.PlutoIndicator, 0, 0);
 
-        indicatorVisibility = attributes.getBoolean(R.styleable.RecyclerViewIndicator_visibility,
+        indicatorVisibility = attributes.getBoolean(R.styleable.PlutoIndicator_visibility,
                 true);
 
 
-        int shape = attributes.getInt(R.styleable.RecyclerViewIndicator_shape,
+        int shape = attributes.getInt(R.styleable.PlutoIndicator_shape,
                 Shape.Oval.ordinal());
+        Shape indicatorShape = Shape.Oval;
         for (Shape s : Shape.values()) {
             if (s.ordinal() == shape) {
-                mIndicatorShape = s;
+                indicatorShape = s;
                 break;
             }
         }
 
         mUserSetSelectedIndicatorResId =
-                attributes.getResourceId(R.styleable.RecyclerViewIndicator_selected_drawable,
-                0);
+                attributes.getResourceId(R.styleable.PlutoIndicator_selected_drawable,
+                        0);
         mUserSetUnSelectedIndicatorResId =
-                attributes.getResourceId(R.styleable.RecyclerViewIndicator_unselected_drawable,
-                0);
+                attributes.getResourceId(R.styleable.PlutoIndicator_unselected_drawable,
+                        0);
 
-        mDefaultSelectedColor =
-                attributes.getColor(R.styleable.RecyclerViewIndicator_selected_color,
-                        Color.rgb(255, 255, 255));
-        mDefaultUnSelectedColor =
-                attributes.getColor(R.styleable.RecyclerViewIndicator_unselected_color,
+        int defaultSelectedColor = attributes.getColor(R.styleable.PlutoIndicator_selected_color,
+                Color.rgb(255, 255, 255));
+        int defaultUnSelectedColor =
+                attributes.getColor(R.styleable.PlutoIndicator_unselected_color,
                         Color.argb(33, 255, 255, 255));
 
-        mDefaultSelectedWidth =
-                attributes.getDimension(R.styleable.RecyclerViewIndicator_selected_width,
+        float defaultSelectedWidth =
+                attributes.getDimension(R.styleable.PlutoIndicator_selected_width,
                         (int) pxFromDp(6));
-        mDefaultSelectedHeight =
-                attributes.getDimensionPixelSize(R.styleable.RecyclerViewIndicator_selected_height, (int) pxFromDp(6));
+        float defaultSelectedHeight =
+                attributes.getDimensionPixelSize(R.styleable.PlutoIndicator_selected_height,
+                        (int) pxFromDp(6));
 
-        mDefaultUnSelectedWidth =
-                attributes.getDimensionPixelSize(R.styleable.RecyclerViewIndicator_unselected_width, (int) pxFromDp(6));
-        mDefaultUnSelectedHeight =
-                attributes.getDimensionPixelSize(R.styleable.RecyclerViewIndicator_unselected_height, (int) pxFromDp(6));
+        float defaultUnSelectedWidth =
+                attributes.getDimensionPixelSize(R.styleable.PlutoIndicator_unselected_width,
+                        (int) pxFromDp(6));
+        float defaultUnSelectedHeight =
+                attributes.getDimensionPixelSize(R.styleable.PlutoIndicator_unselected_height,
+                        (int) pxFromDp(6));
 
         mSelectedGradientDrawable = new GradientDrawable();
         mUnSelectedGradientDrawable = new GradientDrawable();
 
-        mPadding_left =
-                attributes.getDimensionPixelSize(R.styleable.RecyclerViewIndicator_padding_left,
+        float padding_left =
+                attributes.getDimensionPixelSize(R.styleable.PlutoIndicator_padding_left,
                         (int) pxFromDp(3));
-        mPadding_right =
-                attributes.getDimensionPixelSize(R.styleable.RecyclerViewIndicator_padding_right,
+        float padding_right =
+                attributes.getDimensionPixelSize(R.styleable.PlutoIndicator_padding_right,
                         (int) pxFromDp(3));
-        mPadding_top =
-                attributes.getDimensionPixelSize(R.styleable.RecyclerViewIndicator_padding_top,
-                        (int) pxFromDp(0));
-        mPadding_bottom =
-                attributes.getDimensionPixelSize(R.styleable.RecyclerViewIndicator_padding_bottom
+        float padding_top = attributes.getDimensionPixelSize(R.styleable.PlutoIndicator_padding_top,
+                (int) pxFromDp(0));
+        float padding_bottom =
+                attributes.getDimensionPixelSize(R.styleable.PlutoIndicator_padding_bottom
                         , (int) pxFromDp(0));
 
         mSelectedPadding_Left =
-                attributes.getDimensionPixelSize(R.styleable.RecyclerViewIndicator_selected_padding_left, (int) mPadding_left);
+                attributes.getDimensionPixelSize(R.styleable.PlutoIndicator_selected_padding_left
+                        , (int) padding_left);
         mSelectedPadding_Right =
-                attributes.getDimensionPixelSize(R.styleable.RecyclerViewIndicator_selected_padding_right, (int) mPadding_right);
+                attributes.getDimensionPixelSize(R.styleable.PlutoIndicator_selected_padding_right, (int) padding_right);
         mSelectedPadding_Top =
-                attributes.getDimensionPixelSize(R.styleable.RecyclerViewIndicator_selected_padding_top, (int) mPadding_top);
+                attributes.getDimensionPixelSize(R.styleable.PlutoIndicator_selected_padding_top,
+                        (int) padding_top);
         mSelectedPadding_Bottom =
-                attributes.getDimensionPixelSize(R.styleable.RecyclerViewIndicator_selected_padding_bottom, (int) mPadding_bottom);
+                attributes.getDimensionPixelSize(R.styleable.PlutoIndicator_selected_padding_bottom, (int) padding_bottom);
 
         mUnSelectedPadding_Left =
-                attributes.getDimensionPixelSize(R.styleable.RecyclerViewIndicator_unselected_padding_left, (int) mPadding_left);
+                attributes.getDimensionPixelSize(R.styleable.PlutoIndicator_unselected_padding_left, (int) padding_left);
         mUnSelectedPadding_Right =
-                attributes.getDimensionPixelSize(R.styleable.RecyclerViewIndicator_unselected_padding_right, (int) mPadding_right);
+                attributes.getDimensionPixelSize(R.styleable.PlutoIndicator_unselected_padding_right, (int) padding_right);
         mUnSelectedPadding_Top =
-                attributes.getDimensionPixelSize(R.styleable.RecyclerViewIndicator_unselected_padding_top, (int) mPadding_top);
+                attributes.getDimensionPixelSize(R.styleable.PlutoIndicator_unselected_padding_top, (int) padding_top);
         mUnSelectedPadding_Bottom =
-                attributes.getDimensionPixelSize(R.styleable.RecyclerViewIndicator_unselected_padding_bottom, (int) mPadding_bottom);
+                attributes.getDimensionPixelSize(R.styleable.PlutoIndicator_unselected_padding_bottom, (int) padding_bottom);
 
         mSelectedLayerDrawable = new LayerDrawable(new Drawable[]{mSelectedGradientDrawable});
         mUnSelectedLayerDrawable = new LayerDrawable(new Drawable[]{mUnSelectedGradientDrawable});
 
         initObserver();
 
-        setIndicatorStyleResource(mUserSetSelectedIndicatorResId, mUserSetUnSelectedIndicatorResId);
-        setDefaultIndicatorShape(mIndicatorShape);
-        setDefaultSelectedIndicatorSize(mDefaultSelectedWidth, mDefaultSelectedHeight, Unit.Px);
-        setDefaultUnselectedIndicatorSize(mDefaultUnSelectedWidth, mDefaultUnSelectedHeight,
+        setIndicatorDrawableRes(mUserSetSelectedIndicatorResId, mUserSetUnSelectedIndicatorResId);
+        setDefaultIndicatorShape(indicatorShape);
+        setDefaultSelectedIndicatorSize(defaultSelectedWidth, defaultSelectedHeight, Unit.Px);
+        setDefaultUnselectedIndicatorSize(defaultUnSelectedWidth, defaultUnSelectedHeight,
                 Unit.Px);
-        setDefaultIndicatorColor(mDefaultSelectedColor, mDefaultUnSelectedColor);
-        setIndicatorVisibility(isVisible);
+        setDefaultIndicatorColor(defaultSelectedColor, defaultUnSelectedColor);
+        setVisibility(isVisible);
     }
 
     private void initObserver() {
@@ -262,18 +253,18 @@ public class RecyclerViewIndicator extends LinearLayout {
     /**
      * Set Indicator style.
      *
-     * @param selected   page selected drawable
-     * @param unselected page unselected drawable
+     * @param selectedDrawable   page selected drawable
+     * @param unselectedDrawable page unselected drawable
      */
-    public void setIndicatorStyleResource(int selected, int unselected) {
-        mUserSetSelectedIndicatorResId = selected;
-        mUserSetUnSelectedIndicatorResId = unselected;
-        if (selected == 0) {
+    public void setIndicatorDrawableRes(@DrawableRes int selectedDrawable, @DrawableRes int unselectedDrawable) {
+        mUserSetSelectedIndicatorResId = selectedDrawable;
+        mUserSetUnSelectedIndicatorResId = unselectedDrawable;
+        if (selectedDrawable == 0) {
             mSelectedDrawable = mSelectedLayerDrawable;
         } else {
             mSelectedDrawable = mContext.getResources().getDrawable(mUserSetSelectedIndicatorResId);
         }
-        if (unselected == 0) {
+        if (unselectedDrawable == 0) {
             mUnselectedDrawable = mUnSelectedLayerDrawable;
         } else {
             mUnselectedDrawable =
@@ -349,7 +340,7 @@ public class RecyclerViewIndicator extends LinearLayout {
      *
      * @param visibility
      */
-    public void setIndicatorVisibility(boolean visibility) {
+    public void setVisibility(boolean visibility) {
         setVisibility(visibility ? View.VISIBLE : View.INVISIBLE);
         resetDrawable();
     }
@@ -378,7 +369,7 @@ public class RecyclerViewIndicator extends LinearLayout {
      *
      * @param recyclerView
      */
-    public void setRecyclerView(RecyclerView recyclerView, SnapHelper helper) {
+     void setRecyclerView(RecyclerView recyclerView, SnapHelper helper) {
         mRecyclerView = recyclerView;
         RecyclerView.Adapter adapter = mRecyclerView.getAdapter();
         if (adapter == null) {

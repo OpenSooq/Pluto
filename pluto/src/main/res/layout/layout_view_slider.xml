@@ -14,7 +14,7 @@
         custom:layout_constraintStart_toStartOf="parent"
         custom:layout_constraintTop_toTopOf="parent"/>
 
-    <com.opensooq.pluto.RecyclerViewIndicator
+    <com.opensooq.pluto.PlutoIndicator
         android:id="@+id/default_center_bottom_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         custom:layout_constraintStart_toStartOf="@id/rvSlider"
         custom:shape="oval"/>
 
-    <com.opensooq.pluto.RecyclerViewIndicator
+    <com.opensooq.pluto.PlutoIndicator
         android:id="@+id/default_bottom_end_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
         custom:layout_constraintBottom_toBottomOf="@id/rvSlider"
         custom:layout_constraintEnd_toEndOf="@id/rvSlider"/>
 
-    <com.opensooq.pluto.RecyclerViewIndicator
+    <com.opensooq.pluto.PlutoIndicator
         android:id="@+id/default_bottom_start_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
         custom:layout_constraintBottom_toBottomOf="@id/rvSlider"
         custom:layout_constraintStart_toStartOf="@id/rvSlider"/>
 
-    <com.opensooq.pluto.RecyclerViewIndicator
+    <com.opensooq.pluto.PlutoIndicator
 
         android:id="@+id/default_center_top_indicator"
         android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
         custom:layout_constraintStart_toStartOf="@id/rvSlider"
         custom:layout_constraintTop_toTopOf="@id/rvSlider"/>
 
-    <com.opensooq.pluto.RecyclerViewIndicator
+    <com.opensooq.pluto.PlutoIndicator
         android:id="@+id/default_center_top_end_indicator"
 
         android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
         custom:layout_constraintEnd_toEndOf="@id/rvSlider"
         custom:layout_constraintTop_toTopOf="@id/rvSlider"/>
 
-    <com.opensooq.pluto.RecyclerViewIndicator
+    <com.opensooq.pluto.PlutoIndicator
 
         android:id="@+id/default_center_top_start_indicator"
 

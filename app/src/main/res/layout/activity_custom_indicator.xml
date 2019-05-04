@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <com.opensooq.pluto.RecyclerViewIndicator
+    <com.opensooq.pluto.PlutoIndicator
         android:id="@+id/infinity_gauntlet_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

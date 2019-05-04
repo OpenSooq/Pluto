@@ -32,7 +32,7 @@ public class PlutoView extends FrameLayout {
     private PlutoAdapter mAdapter;
     private long duration = 4000;
     private int currentPosition;
-    private RecyclerViewIndicator mIndicator;
+    private PlutoIndicator mIndicator;
     private boolean mIndicatorVisibility;
     private Timer mCycleTimer;
     private TimerTask mCycleTask;
@@ -132,7 +132,7 @@ public class PlutoView extends FrameLayout {
             return;
         }
 
-        mIndicator.setIndicatorVisibility(visibility);
+        mIndicator.setVisibility(visibility);
     }
 
     public boolean getIndicatorVisibility() {
@@ -143,9 +143,6 @@ public class PlutoView extends FrameLayout {
 
     }
 
-    public RecyclerViewIndicator getRecyclerViewIndicator() {
-        return mIndicator;
-    }
 
     public enum IndicatorPosition {
         CENTER_BOTTOM("CENTER_BOTTOM", R.id.default_center_bottom_indicator),
@@ -172,16 +169,16 @@ public class PlutoView extends FrameLayout {
     }
 
     public void setIndicatorPosition(IndicatorPosition presetIndicator) {
-        RecyclerViewIndicator RecyclerViewIndicator = findViewById(presetIndicator.getResourceId());
-        setCustomIndicator(RecyclerViewIndicator);
+        PlutoIndicator PlutoIndicator = findViewById(presetIndicator.getResourceId());
+        setCustomIndicator(PlutoIndicator);
     }
 
-    public void setCustomIndicator(RecyclerViewIndicator indicator) {
+    public void setCustomIndicator(PlutoIndicator indicator) {
         if (mIndicator != null) {
             mIndicator.destroySelf();
         }
         mIndicator = indicator;
-        mIndicator.setIndicatorVisibility(mIndicatorVisibility);
+        mIndicator.setVisibility(mIndicatorVisibility);
         mIndicator.setRecyclerView(rvSlider, helper);
         mIndicator.redraw();
     }
@@ -200,9 +197,6 @@ public class PlutoView extends FrameLayout {
         setCurrentPosition(0, false);
     }
 
-    public RecyclerView getSliderRecyclerView() {
-        return rvSlider;
-    }
 
     private void addScrollListener() {
         helper = new PagerSnapHelper();
@@ -246,6 +240,10 @@ public class PlutoView extends FrameLayout {
      * remove  the slider at the position.
      */
     public void removeSliderAt(int position) {
+
+        if (position >= getAdapter().getRealCount() || position <0) {
+            throw new IndexOutOfBoundsException("trying to access position"+position+" where size"+getAdapter().getRealCount());
+        }
         if (getAdapter() != null) {
             getAdapter().removeItemAt(position);
         }
@@ -268,8 +266,8 @@ public class PlutoView extends FrameLayout {
     public void setCurrentPosition(int position, boolean smooth) {
         if (getAdapter() == null)
             onDestroy();
-        if (position >= getAdapter().getRealCount()) {
-            throw new IllegalStateException("Item position is not exist");
+        if (position >= getAdapter().getRealCount() || position <0) {
+            throw new IndexOutOfBoundsException("trying to access position"+position+" where size"+getAdapter().getRealCount());
         }
         currentPosition = getAdapter().getRealCount() * PlutoAdapter.MULTIPLY
                 + position;
@@ -446,7 +444,7 @@ public class PlutoView extends FrameLayout {
         return false;
     }
 
-    public boolean isCycling() {
+    public boolean isAutoCycling() {
         return mCycling;
     }
 
