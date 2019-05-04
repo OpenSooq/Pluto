@@ -10,7 +10,7 @@ Pluto [Android Slider view Library]
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 
-##### Pluto is an Easy, lightwight  and high performance slider view library for Android!  You can customize it to any view since it based RecyclerView. The differnce of this library, we are not following the concept of images model. Pluto is not depending on any Image loading library 
+##### Pluto is an Easy, lightweight  and high performance slider view library for Android!  You can customize it to any view since it based RecyclerView. The differnce of this library, we are not following the concept of images model. Pluto is not depending on any Image loading library 
 
 
 
