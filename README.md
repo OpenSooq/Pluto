@@ -25,7 +25,6 @@ Demo
 * [Usage](#usage)
 * [Event Listeners](#event-listeners)
 * [Custom indicator](#indicator)
-
 - [License](#license)
 
 # Download
