@@ -24,7 +24,7 @@ Demo
 * [Sample Project](#sample-project)
 * [Usage](#usage)
 * [Event Listeners](#event-listeners)
-* [Custom indicator](#indicator)
+* [Custom indicator](#Custom-indicator)
 - [License](#license)
 
 # Download
