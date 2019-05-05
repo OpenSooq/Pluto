@@ -4,7 +4,7 @@
 
 Pluto [Android Slider View Library]
 ======================
-![API](https://img.shields.io/badge/API-17%2B-green.svg?style=flat) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+![API](https://img.shields.io/badge/API-17%2B-green.svg?style=flat) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Pluto-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7641)
 
 :star: Star us on GitHub — it helps!
 
