@@ -10,31 +10,31 @@ import android.arch.lifecycle.OnLifecycleEvent
 internal class PlutoLifeCycleObserver : LifecycleObserver {
     private var actionHandler: ViewActionHandler? = null
     private lateinit var lifecycle: Lifecycle
-    fun registerActionHandler(handler: ViewActionHandler) {
+    internal fun registerActionHandler(handler: ViewActionHandler) {
         this.actionHandler = handler
     }
 
-    fun registerLifecycle(lifecycle: Lifecycle) {
+    internal fun registerLifecycle(lifecycle: Lifecycle) {
         this.lifecycle = lifecycle
         this.lifecycle.addObserver(this)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResume() {
+    internal    fun onResume() {
         this.actionHandler?.onResumed()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun stop() {
+    internal  fun stop() {
         this.actionHandler?.onDestroy()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    fun onDestroy() {
+    internal  fun onDestroy() {
         this.actionHandler?.onPause()
     }
 
-    fun unregister() {
+    internal fun unregister() {
         this.actionHandler = null
         lifecycle.removeObserver(this)
     }

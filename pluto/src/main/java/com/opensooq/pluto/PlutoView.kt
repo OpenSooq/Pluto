@@ -18,6 +18,7 @@ import com.opensooq.pluto.listeners.OnSnapPositionChangeListener
 import com.opensooq.pluto.listeners.SnapOnScrollListener
 import java.lang.ref.WeakReference
 import java.util.*
+import kotlin.Experimental.Level
 
 /**
  * Created by Omar Altamimi on 28,April,2019
@@ -382,23 +383,21 @@ class PlutoView @JvmOverloads constructor(context: Context,
         }
     }
 
+    @DontUse
     override fun onResumed() {
-        println("LifeCycle : onResumed()")
         if (wasCycling) {
-            println("LifeCycle : recovering()")
             recoverCycle()
         }
 
     }
 
+    @DontUse
     override fun onPause() {
-
-        println("LifeCycle : onPause()")
         pauseAutoCycle()
     }
 
+    @DontUse
     override fun onDestroy() {
-        println("LifeCycle : onDestroy()")
         destroyPluto()
     }
 
@@ -407,4 +406,8 @@ class PlutoView @JvmOverloads constructor(context: Context,
         private const val DELAY_TIME = 3000L
         private const val DEFAULT_DURATION = 4000L
     }
+
+    @Experimental(level = Level.ERROR)
+    private annotation class DontUse
+
 }
