@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        pluto.create(adapter, 4000, lifecycle)
+        pluto.create(adapter, lifecycle =  lifecycle)
         pluto.setOnSlideChangeListener(object : OnSlideChangeListener {
             override fun onSlideChange(adapter: PlutoAdapter<*, *>, position: Int) {
 

@@ -16,7 +16,7 @@ ext {
     gitUrl = 'https://github.com/OpenSooq/Pluto.git'
     githubRepository= 'OpenSooq/Pluto'
 
-    libraryVersion = '1.4'
+    libraryVersion = '1.5'
 
     developerId = 'OpenSooq'
     developerName = 'OpenSooq'

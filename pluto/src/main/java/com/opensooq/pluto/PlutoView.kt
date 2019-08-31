@@ -35,7 +35,7 @@ class PlutoView @JvmOverloads constructor(context: Context,
     private var indicator: PlutoIndicator? = null
     private var cycleTimer: Timer? = null
     private var cycleTask: TimerTask? = null
-    private var adapter: PlutoAdapter<*, *>? = null
+    private var plutoAdapter: PlutoAdapter<*, *>? = null
 
     private var resumingTimer: Timer? = null
     var isCycling: Boolean = false
@@ -60,8 +60,10 @@ class PlutoView @JvmOverloads constructor(context: Context,
     private fun setupAdapter() {
         val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         linearLayoutManager.initialPrefetchItemCount = 4
-        rvSlider?.layoutManager = linearLayoutManager
-        rvSlider?.adapter = adapter
+        rvSlider?.apply {
+            layoutManager = linearLayoutManager
+            adapter = plutoAdapter
+        }
         addScrollListener()
     }
 
@@ -108,7 +110,7 @@ class PlutoView @JvmOverloads constructor(context: Context,
         onScrollListener = SnapOnScrollListener(helper, object : OnSnapPositionChangeListener {
             override fun onSnapPositionChange(position: Int) {
                 currentPosition = position
-                adapter?.let {
+                plutoAdapter?.let {
 
                     onSlideChangeListener?.onSlideChange(it,
                             position % it.realCount)
@@ -120,7 +122,7 @@ class PlutoView @JvmOverloads constructor(context: Context,
 
     @JvmOverloads
     fun create(adapter: PlutoAdapter<*, *>, duration: Long = DEFAULT_DURATION, lifecycle: Lifecycle) {
-        this.adapter = adapter
+        this.plutoAdapter = adapter
         plutoLifeCycleObserver.registerActionHandler(this)
         plutoLifeCycleObserver.registerLifecycle(lifecycle)
         setupAdapter()
@@ -188,9 +190,9 @@ class PlutoView @JvmOverloads constructor(context: Context,
      * @return
      */
     fun getCurrentPosition(): Int {
-        if (adapter == null)
+        if (plutoAdapter == null)
             throw IllegalStateException("You did not set a slider adapter")
-        return currentPosition % adapter?.realCount!!
+        return currentPosition % plutoAdapter?.realCount!!
     }
 
     /**
@@ -200,7 +202,7 @@ class PlutoView @JvmOverloads constructor(context: Context,
      */
     @JvmOverloads
     fun setCurrentPosition(position: Int, smooth: Boolean = true) {
-        adapter?.let {
+        plutoAdapter?.let {
             if (position >= it.realCount || position < 0) {
                 throw IndexOutOfBoundsException("trying to access position" + position + " where size" + it.realCount)
             }
@@ -223,7 +225,7 @@ class PlutoView @JvmOverloads constructor(context: Context,
     fun movePrevPosition(smooth: Boolean = true) {
         currentPosition--
 
-        if (adapter == null)
+        if (plutoAdapter == null)
             destroyPluto()
         if (smooth) {
             rvSlider?.smoothScrollToPosition(currentPosition)
@@ -238,11 +240,11 @@ class PlutoView @JvmOverloads constructor(context: Context,
      */
     @JvmOverloads
     fun moveNextPosition(smooth: Boolean = true) {
-        if (currentPosition + 1 > adapter?.getItemCount() ?: 0)
+        if (currentPosition + 1 > plutoAdapter?.getItemCount() ?: 0)
             return
         currentPosition++
 
-        if (adapter == null)
+        if (plutoAdapter == null)
             destroyPluto()
         if (smooth) {
             rvSlider?.smoothScrollToPosition(currentPosition)
@@ -269,11 +271,7 @@ class PlutoView @JvmOverloads constructor(context: Context,
         this.duration = duration
         cycleTimer = Timer()
         this.autoRecover = autoRecover
-        cycleTask = object : TimerTask() {
-            override fun run() {
-                mh.sendEmptyMessage(0)
-            }
-        }
+        cycleTask = CycleTask(mh)
         cycleTimer?.schedule(cycleTask, DELAY_TIME, duration)
         isCycling = true
         autoCycle = true
@@ -409,5 +407,13 @@ class PlutoView @JvmOverloads constructor(context: Context,
 
     @Experimental(level = Level.ERROR)
     private annotation class DontUse
+  private  class CycleTask(private val incomingHandler: IncomingHandler?) : TimerTask() {
+
+        override fun run() {
+            incomingHandler?.sendEmptyMessage(0)
+        }
+
+    }
+
 
 }

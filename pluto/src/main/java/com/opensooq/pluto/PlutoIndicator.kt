@@ -334,7 +334,10 @@ class PlutoIndicator @JvmOverloads constructor(private val mContext: Context, at
         val adapter = mRecyclerView?.adapter
         if (adapter != null && mDataObserver != null) {
             mDataObserver?.let {
-                adapter.unregisterAdapterDataObserver(it)
+                try {
+                    adapter.unregisterAdapterDataObserver(it)
+                } catch (ignore: Throwable) {
+                }
                 mDataObserver = null
             }
         }
@@ -353,7 +356,10 @@ class PlutoIndicator @JvmOverloads constructor(private val mContext: Context, at
         mRecyclerView = recyclerView
         if (mDataObserver == null)
             initObserver()
-        adapter.registerAdapterDataObserver(mDataObserver!!)
+        try {
+            adapter.registerAdapterDataObserver(mDataObserver!!)
+        } catch (ignore: Throwable) {
+        }
         snapOnScrollListener?.let {
             mRecyclerView?.removeOnScrollListener(it)
             snapOnScrollListener = null
