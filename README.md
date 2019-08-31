@@ -34,7 +34,7 @@ This library is available in **jCenter** which is the default Maven repository u
 ```groovy
 dependencies {
     // other dependencies here
-    implementation 'com.opensooq.android:pluto:1.2'
+    implementation 'com.opensooq.android:pluto:1.4'
 }
 ```
 
@@ -48,6 +48,28 @@ Checkout the demo  [here](https://github.com/OpenSooq/Pluto/tree/master/app/src/
 
 # Usage
 #### First create your own adapter extending the ``PlutoAdapter``
+
+### Kotlin
+```kotlin
+class YourAdapter(items: MutableList<YourModel> , onItemClickListener: OnItemClickListener<Movie>? = null)
+    : PlutoAdapter<YourModel, YourViewHolder>(items,onItemClickListener) {
+
+    override fun getViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(parent, R.layout.item_your_layout)
+    }
+
+    class YourViewHolder(parent: ViewGroup, itemLayoutId: Int) : PlutoViewHolder<YourModel>(parent, itemLayoutId) {
+        private var ivPoster: ImageView = getView(R.id.iv_poster)
+        private var tvRating: TextView = getView(R.id.tv_rating)
+
+        override fun set(item: YourModel, position: Int) {
+           //  yourImageLoader.with(mContext).load(item.getPosterId()).into(ivPoster);
+            tvRating.text = item.imdbRating
+        }
+    }
+}
+```
+### Java
 
 ```java
 public class YourAdapter extends PlutoAdapter<YourModel, YourViewHolder> {
@@ -91,14 +113,26 @@ public class YourAdapter extends PlutoAdapter<YourModel, YourViewHolder> {
         app:layout_constraintTop_toTopOf="parent"/>
 ``` 
 ### finaly attach the adapter to Pluto 
+### Kotlin
+```kotlin
+val pluto = findViewById<PlutoView>(R.id.slider_view)
+        val yourAdapter = YourAdapter(yourModelList, object : OnItemClickListener<Movie> {
+            override fun onItemClicked(item: yourModel?, position: Int) {
+            }
+        })
+
+        pluto.create(adapter, lifecycle = lifecycle)//pass the lifecycle to make the slider aware of lifecycle to avoid memory leak and handling the pause/destroy/resume 
+        
+```
+### Java
 ```java
   PlutoView pluto = findViewById(R.id.slider_view);
         YourAdapter adapter = new YourAdapter(yourModelsList);
-        pluto.create(adapter);     
+        pluto.create(adapter,getLifecycle());  //pass the lifecycle to make the slider aware of lifecycle to avoid memory leak and handling the pause/destroy/resume    
 ```
 | Method | usage |
 | ------ | ------ |
-| ``` create(PlutoAdapter adapter, long duration)``` | it is the initialization method it take your adapter and the duration of waiting between each slide |
+| ``` create(PlutoAdapter adapter, long duration,Lifecycle lifecyle)``` | it is the initialization method it take your adapter and the duration of waiting between each slide and lifecycle to make slider lifecylce-aware |
 | ``` startAutoCycle() ``` | by default the value of autocycle is true, it determine to start autocycling or not  |
 | ``` stopAutoCycle() ``` | it stops the auto cycling of the view |
 | ``` moveNextPosition() ``` | if you are the auto cylce is off you can manually move next with this method  |
@@ -109,18 +143,46 @@ public class YourAdapter extends PlutoAdapter<YourModel, YourViewHolder> {
 # Event Listeners 
 ### for item click listener its the responsibility of the ```PlutoAdapter```  to handle it, 
 #### Example 
+### Kotlin
+```kotlin
+        val adapter = SliderAdapter(getAvenger(), object : OnItemClickListener<Movie> {
+            override fun onItemClicked(item: Movie?, position: Int) {
+                //handle click
+            }
+
+        })
+	//or
+        adapter.setOnItemClickListener(object : OnItemClickListener<Movie> {
+            override fun onItemClicked(item: Movie?, position: Int) {
+                //handle click 
+            }
+        })
+
+```
+### Java
 ```java 
 
         SliderAdapter adapter = new SliderAdapter(getAvengers(), (item, position) -> {
             //handle clickhere
         });
-        
+        //or
         adapter.setOnItemClickListener((item, position) -> {
             //handle click here
         });
 ```
 ### you can attach listener to the ```PlutoView``` to listen for sliding event 
 #### Example 
+
+### Kotlin
+```kotlin
+
+        pluto.setOnSlideChangeListener(object : OnSlideChangeListener {
+            override fun onSlideChange(adapter: PlutoAdapter<*, *>, position: Int) {
+
+            }
+        })
+```
+### Java
 
 ```java 
 
