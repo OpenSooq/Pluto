@@ -15,7 +15,7 @@ import com.opensooq.pluto.listeners.OnItemClickListener
  * Created by Omar Altamimi on 28,April,2019
  */
 
-abstract class PlutoViewHolder<T>(parent: ViewGroup, @LayoutRes itemLayoutId: Int) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(itemLayoutId, parent, false)) {
+abstract class PlutoViewHolder<T>(view: View) : RecyclerView.ViewHolder(view) {
     val context: Context = itemView.context
     private var mOnItemClickListener: OnItemClickListener<T>? = null
     internal var mPosition = RecyclerView.NO_POSITION
@@ -26,6 +26,8 @@ abstract class PlutoViewHolder<T>(parent: ViewGroup, @LayoutRes itemLayoutId: In
      */
     private val views: SparseArray<View> = SparseArray()
 
+    constructor(parent: ViewGroup, @LayoutRes itemLayoutId: Int) : this(LayoutInflater.from(parent.context).inflate(itemLayoutId, parent, false))
+    
     var tag: T?
         get() {
             val tag = itemView.tag
