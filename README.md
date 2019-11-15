@@ -34,7 +34,7 @@ This library is available in **jCenter** which is the default Maven repository u
 ```groovy
 dependencies {
     // other dependencies here
-    implementation 'com.opensooq.android:pluto:1.4'
+    implementation 'com.opensooq.android:pluto:1.6'
 }
 ```
 
