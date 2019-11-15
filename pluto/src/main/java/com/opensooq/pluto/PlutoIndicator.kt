@@ -53,7 +53,7 @@ class PlutoIndicator @JvmOverloads constructor(private val mContext: Context, at
     internal var snapOnScrollListener: SnapOnScrollListener? = null
     private var mItemCount = 0
 
-    val isVisible = true
+    var isVisible = true
 
     internal var indicatorVisibility: Boolean = false
 
@@ -88,7 +88,7 @@ class PlutoIndicator @JvmOverloads constructor(private val mContext: Context, at
         get() = if (mRecyclerView?.adapter is PlutoAdapter<*, *>) {
             (mRecyclerView?.adapter as PlutoAdapter<*, *>).realCount
         } else {
-            mRecyclerView?.adapter?.itemCount!!
+            mRecyclerView?.adapter?.itemCount?:0
         }
 
     private var mDataObserver: RecyclerView.AdapterDataObserver? = null
@@ -316,6 +316,7 @@ class PlutoIndicator @JvmOverloads constructor(private val mContext: Context, at
      * @param visibility
      */
     fun setVisibility(visibility: Boolean) {
+        isVisible =visibility
         setVisibility(if (visibility) View.VISIBLE else View.INVISIBLE)
         resetDrawable()
     }

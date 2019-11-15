@@ -50,9 +50,9 @@ class PlutoView @JvmOverloads constructor(context: Context,
     /**
      * Set the visibility of the indicators.
      */
-    var indicatorVisibility: Boolean
-        get() = indicator?.isVisible ?: false
+    var indicatorVisibility: Boolean = false
         set(visibility) {
+            field =visibility
             indicator?.setVisibility(visibility)
         }
 
@@ -153,7 +153,7 @@ class PlutoView @JvmOverloads constructor(context: Context,
         this.indicator?.destroySelf()
         this.indicator = indicator
         this.indicator?.apply {
-            setVisibility(indicatorVisibility)
+            setVisibility(this@PlutoView.indicatorVisibility)
             setRecyclerView(rvSlider, helper)
             redraw()
         }
@@ -265,6 +265,7 @@ class PlutoView @JvmOverloads constructor(context: Context,
                        autoRecover: Boolean = this.autoRecover) {
 
         cycleTask?.cancel()
+        mh.removeCallbacksAndMessages(null)
         cycleTimer?.cancel()
         resumingTimer?.cancel()
         resumingTask?.cancel()
@@ -286,6 +287,8 @@ class PlutoView @JvmOverloads constructor(context: Context,
         if (isCycling) {
             cycleTimer?.cancel()
             cycleTask?.cancel()
+            mh.removeCallbacksAndMessages(null)
+
             isCycling = false
             wasCycling = true
         } else {
@@ -316,7 +319,11 @@ class PlutoView @JvmOverloads constructor(context: Context,
                     startAutoCycle()
                 }
             }
-            resumingTimer?.schedule(resumingTask, DELAY_TIME)
+            try {
+                resumingTimer?.schedule(resumingTask, DELAY_TIME)
+            } catch (ignore: IllegalStateException) {
+
+            }
         }
     }
 
@@ -339,6 +346,8 @@ class PlutoView @JvmOverloads constructor(context: Context,
      */
     fun stopAutoCycle() {
         cycleTask?.cancel()
+        mh.removeCallbacksAndMessages(null)
+
         cycleTimer?.cancel()
         resumingTimer?.cancel()
         resumingTask?.cancel()
@@ -356,6 +365,8 @@ class PlutoView @JvmOverloads constructor(context: Context,
 
     private fun destroyPluto() {
         cycleTask?.cancel()
+        mh.removeCallbacksAndMessages(null)
+
         cycleTimer?.cancel()
         resumingTimer?.cancel()
         resumingTask?.cancel()
@@ -407,7 +418,8 @@ class PlutoView @JvmOverloads constructor(context: Context,
 
     @Experimental(level = Level.ERROR)
     private annotation class DontUse
-  private  class CycleTask(private val incomingHandler: IncomingHandler?) : TimerTask() {
+
+    private class CycleTask(private val incomingHandler: IncomingHandler?) : TimerTask() {
 
         override fun run() {
             incomingHandler?.sendEmptyMessage(0)

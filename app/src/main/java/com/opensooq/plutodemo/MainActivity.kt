@@ -3,12 +3,15 @@ package com.opensooq.plutodemo
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.LinearLayout
 
 import com.opensooq.pluto.PlutoView
 import com.opensooq.pluto.base.PlutoAdapter
 import com.opensooq.pluto.listeners.OnItemClickListener
 import com.opensooq.pluto.listeners.OnSlideChangeListener
+
+const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,12 +30,14 @@ class MainActivity : AppCompatActivity() {
         val pluto = findViewById<PlutoView>(R.id.slider_view)
         val adapter = SliderAdapter(getAvenger(), object : OnItemClickListener<Movie> {
             override fun onItemClicked(item: Movie?, position: Int) {
+                Log.d(TAG, "on Item clicked $position ${item?.imdbRating}")
             }
         })
 
-        pluto.create(adapter, lifecycle =  lifecycle)
+        pluto.create(adapter, lifecycle = lifecycle)
         pluto.setOnSlideChangeListener(object : OnSlideChangeListener {
             override fun onSlideChange(adapter: PlutoAdapter<*, *>, position: Int) {
+                Log.d(TAG, "on slide change $position ")
 
             }
         })
