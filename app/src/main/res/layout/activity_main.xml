@@ -11,8 +11,10 @@
     <com.opensooq.pluto.PlutoView
         android:id="@+id/slider_view"
         android:layout_width="match_parent"
+        app:scroll_speed="5"
         android:layout_height="wrap_content"
         app:indicator_visibility="true"
+        app:pluto_direction="ltr"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

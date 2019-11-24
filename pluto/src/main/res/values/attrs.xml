@@ -5,7 +5,17 @@
     <declare-styleable name="PlutoView">
         <attr name="indicator_visibility" format="boolean"/>
         <attr name="auto_cycle" format="boolean"/>
-
+        <attr name="scroll_speed" format="integer"/>
+        <attr name="pluto_direction">
+            <!-- Left-to-Right. -->
+            <enum name="ltr" value="0" />
+            <!-- Right-to-Left. -->
+            <enum name="rtl" value="1" />
+            <!-- Inherit from parent. -->
+            <enum name="inherit" value="2" />
+            <!-- Locale. -->
+            <enum name="locale" value="3" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="PlutoIndicator">

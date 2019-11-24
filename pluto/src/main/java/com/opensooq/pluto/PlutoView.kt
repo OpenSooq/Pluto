@@ -52,17 +52,33 @@ class PlutoView @JvmOverloads constructor(context: Context,
      */
     var indicatorVisibility: Boolean = false
         set(visibility) {
-            field =visibility
+            field = visibility
             indicator?.setVisibility(visibility)
+        }
+    var scrollSpeed: Int = 5
+        set(speed) {
+            field = when {
+                speed > 10 -> 10
+                speed < 1 -> 1
+                else -> speed
+            }
+
+        }
+    var plutoDirection:Int=3
+        set(value) {
+            field=value
         }
 
     private val mh = IncomingHandler(this)
     private fun setupAdapter() {
-        val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        //val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val linearLayoutManager = PlutoLayoutManager(context, LinearLayoutManager.HORIZONTAL, false, getCorrectScale())
         linearLayoutManager.initialPrefetchItemCount = 4
+
         rvSlider?.apply {
             layoutManager = linearLayoutManager
             adapter = plutoAdapter
+            layoutDirection=plutoDirection
         }
         addScrollListener()
     }
@@ -77,6 +93,8 @@ class PlutoView @JvmOverloads constructor(context: Context,
         autoCycle = attributes.getBoolean(R.styleable.PlutoView_auto_cycle, true)
         indicatorVisibility = attributes.getBoolean(R.styleable.PlutoView_indicator_visibility,
                 false)
+        scrollSpeed = attributes.getInteger(R.styleable.PlutoView_scroll_speed, 5)
+        plutoDirection = attributes.getInteger(R.styleable.PlutoView_pluto_direction,3)
         rvSlider?.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
 
             override fun onInterceptTouchEvent(recyclerView: RecyclerView,
@@ -147,6 +165,7 @@ class PlutoView @JvmOverloads constructor(context: Context,
     fun setIndicatorPosition(presetIndicator: IndicatorPosition) {
         val indicator = findViewById<PlutoIndicator>(presetIndicator.resourceId)
         setCustomIndicator(indicator)
+        indicator?.layoutDirection=plutoDirection
     }
 
     fun setCustomIndicator(indicator: PlutoIndicator) {
@@ -208,7 +227,9 @@ class PlutoView @JvmOverloads constructor(context: Context,
             }
             currentPosition = it.realCount * PlutoAdapter.MULTIPLY + position
             if (smooth) {
-                rvSlider?.smoothScrollToPosition(currentPosition)
+                //rvSlider?.smoothScrollToPosition(currentPosition)
+                rvSlider?.layoutManager?.smoothScrollToPosition(rvSlider, null, currentPosition)
+
             } else {
                 rvSlider?.scrollToPosition(currentPosition)
 
@@ -228,7 +249,8 @@ class PlutoView @JvmOverloads constructor(context: Context,
         if (plutoAdapter == null)
             destroyPluto()
         if (smooth) {
-            rvSlider?.smoothScrollToPosition(currentPosition)
+            //rvSlider?.smoothScrollToPosition(currentPosition)
+            rvSlider?.layoutManager?.smoothScrollToPosition(rvSlider, null, currentPosition)
         } else {
             rvSlider?.scrollToPosition(currentPosition)
         }
@@ -247,7 +269,8 @@ class PlutoView @JvmOverloads constructor(context: Context,
         if (plutoAdapter == null)
             destroyPluto()
         if (smooth) {
-            rvSlider?.smoothScrollToPosition(currentPosition)
+            //rvSlider?.smoothScrollToPosition(currentPosition)
+            rvSlider?.layoutManager?.smoothScrollToPosition(rvSlider, null, currentPosition)
         } else {
             rvSlider?.scrollToPosition(currentPosition)
         }
@@ -425,6 +448,22 @@ class PlutoView @JvmOverloads constructor(context: Context,
             incomingHandler?.sendEmptyMessage(0)
         }
 
+    }
+
+    fun getCorrectScale(): Int {
+        return when (scrollSpeed) {
+            1 -> 10
+            2 -> 9
+            3 -> 8
+            4 -> 7
+            5 -> 6
+            6 -> 5
+            7 -> 4
+            8 -> 3
+            9 -> 2
+            10 -> 1
+            else -> 1
+        }
     }
 
 
