@@ -16,6 +16,7 @@ import com.opensooq.pluto.base.PlutoAdapter
 import com.opensooq.pluto.listeners.OnSlideChangeListener
 import com.opensooq.pluto.listeners.OnSnapPositionChangeListener
 import com.opensooq.pluto.listeners.SnapOnScrollListener
+import java.lang.IllegalArgumentException
 import java.lang.ref.WeakReference
 import java.util.*
 import kotlin.Experimental.Level
@@ -36,6 +37,7 @@ class PlutoView @JvmOverloads constructor(context: Context,
     private var cycleTimer: Timer? = null
     private var cycleTask: TimerTask? = null
     private var plutoAdapter: PlutoAdapter<*, *>? = null
+    private var linearLayoutManager: LinearLayoutManager? = null
 
     private var resumingTimer: Timer? = null
     var isCycling: Boolean = false
@@ -58,8 +60,8 @@ class PlutoView @JvmOverloads constructor(context: Context,
 
     private val mh = IncomingHandler(this)
     private fun setupAdapter() {
-        val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        linearLayoutManager.initialPrefetchItemCount = 4
+        linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        linearLayoutManager?.initialPrefetchItemCount = 4
         rvSlider?.apply {
             layoutManager = linearLayoutManager
             adapter = plutoAdapter
@@ -171,6 +173,17 @@ class PlutoView @JvmOverloads constructor(context: Context,
             rvSlider?.addOnScrollListener(it)
 
         }
+    }
+
+    /**
+     * Change the Layout Direction
+     */
+    fun isRtl(isRtl: Boolean) {
+        if (linearLayoutManager == null) {
+            throw IllegalArgumentException("Pluto Adapter Not Setup Yet call setupAdapter()")
+        }
+
+        linearLayoutManager?.reverseLayout = isRtl
     }
 
     fun setOnSlideChangeListener(onSlideChangeListener: OnSlideChangeListener) {
@@ -373,6 +386,7 @@ class PlutoView @JvmOverloads constructor(context: Context,
         mh.removeCallbacksAndMessages(null)
         rvSlider?.adapter = null
         indicator?.destroySelf()
+        linearLayoutManager = null
         onScrollListener?.let { rvSlider?.removeOnScrollListener(it) }
         onScrollListener = null
         onSlideChangeListener = null

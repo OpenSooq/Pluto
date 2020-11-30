@@ -365,6 +365,9 @@ Bind it with a `PlutoView` instance.
 pluto.setCustomIndicator(findViewById(R.id.custom_indicator));
 ```
 
+> Minimum Supported Version is (17)
+> Target Sdk Version is (28)
+
 
 # License
 
